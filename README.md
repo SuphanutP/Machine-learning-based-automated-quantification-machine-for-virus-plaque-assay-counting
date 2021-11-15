@@ -6,74 +6,43 @@
 | Mvtech_halcon| STEADY EDITION 20.11 | ML-based software for image viral plaque counting.|
 | Solitech | Put in C directory | A web app for Using GUI of Automated Quantification|
 
-* Note that for Linux/MacOS the commands are usually python3 and pip3 instead of python and pip respectively.
+* Note that for  Window OS only
 
-1. Clone this project to your machine(computers).
+1. Clone this files to your computer ( Program would run on C - directory only).
 ``` 
-git clone https://github.com/kinkinkinxd/YourFitnessPal.git
+git clone https://github.com/SuphanutP/Machine-learning-based-automated-quantification-machine-for-virus-plaque-assay-counting.git
 ```
-2. Go to the directory where you clone the project.
+2. Go to the C directory.
 ```
-cd YourFitnessPal
+click solitech folder
 ```
-3. Install virtualenv.
+3. In Solitech folder contain 2 folder(click on Wep App Plaque )
 ```
-python -m pip install virtualenv
+click on Plaque assay to see plaque picture or click Wep App Plaque to Run the program
 ```
-4. Generate new virtual enviroment. (For Window OS)
+4. Click on Plaque Assay
 ```
-virtualenv env
+Plaque Assay
 ```
-(For MacOS/Linux)
+5.Click on WindowsForms Plaque
 ```
-virtualenv venv
+WindowsForms Plaque
 ```
-5. Activate virtualenv
+6. Click on WindowsForms Plaque
+```
+There are 3 folders click on WindowsForms Plaque
+```
+7. Click on bin
+```
+bin
+```
+7. Click on Debug
+```
+Debug
+```
+8. Click on WindowsForms Plaque(Application)
+```
+WindowsForms Plaque
+```
+*The video tutorial is in How to open plaque counting Program *
 
-go to env directory and then activate it
-
-For Window OS
-```
-cd env
-Scripts\activate
-```
-after you did this section you should see (env) in your terminal
-```
-(env) C:\user\YourFitnessPal\env>
-```
-for MacOs and Linux
-```
-source venv/bin/activate
-```
-6. Go out from the env directory
-```
-(env) C:\user\YourFitnessPal\env>cd..	
-# we should see terminal like below
-(env) C:\user\YourFitnessPal>
-```
-7. Enter this command to install all require packages.
-``` 
-pip install -r requirements.txt 
-```
-8. Enter this command to migrate the database.
-``` 
-python manage.py migrate 
-```
-9. Enter this command to initiate initial user accounts.
-``` 
-python manage.py loaddata users.json
-```
-10. Enter this command to start running the server.
-``` 
-python manage.py runserver 
-```
-11. Login to the web application using this given demo account.
-
-|Username | Password |
-|-------------|:----------:|
-|  sample | hellosample |
-12. Enter this command when you are done with the website
-
-```
-deactivate 
-```
