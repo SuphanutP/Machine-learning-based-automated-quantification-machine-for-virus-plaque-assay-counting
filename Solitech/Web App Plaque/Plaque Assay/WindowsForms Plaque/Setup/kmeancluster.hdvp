@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="20.11.1.2">
+<procedure name="kmeancluster">
+<interface>
+<io>
+<par name="a" base_type="iconic" dimension="0"/>
+<par name="b" base_type="iconic" dimension="0"/>
+</io>
+<oo>
+<par name="Resultk" base_type="iconic" dimension="0"/>
+</oo>
+<ic>
+<par name="GridSize" base_type="ctrl" dimension="0"/>
+<par name="RadiusS" base_type="ctrl" dimension="0"/>
+<par name="RadiusK" base_type="ctrl" dimension="0"/>
+<par name="Silhouette" base_type="ctrl" dimension="0"/>
+</ic>
+</interface>
+<body>
+<l>x := [0,1,-1,0,1,-1,  10,11,13,9,11,11,  5,4,5,4,4,5,  0, 1, 2, 0, 1, 2,  12,12,14,16,12,14]</l>
+<l>y := [0,0, 0,0,1, 1,   0, 1,-1,0,-1, 1,  5,5,4,5,4,5, -5,-4,-6,-4,-3,-6,  -4,-6,-7,-5,-6,-7]</l>
+<c></c>
+<l>gen_empty_obj(Resultk)</l>
+<l>get_image_size (a, Width, Height)</l>
+<c></c>
+<l>n := log10(Height)/log10(2)</l>
+<l>myCol := [0:1:Width-1]</l>
+<l>for i := 1 to ceil(n) by 1</l>
+<l>    myCol := [myCol,myCol]</l>
+<l>endfor</l>
+<l>myCol := myCol[0:Width*Height-1]</l>
+<c></c>
+<l>n := log10(Width)/log10(2)</l>
+<l>myRow := [0:1:Height-1]</l>
+<l>for i := 1 to ceil(n) by 1</l>
+<l>    myRow := [myRow,myRow]</l>
+<l>endfor</l>
+<l>myRow := myRow[0:Width*Height-1]</l>
+<l>tuple_sort (myRow, myRow)</l>
+<c></c>
+<l>get_grayval (a, myRow, myCol, aVal)</l>
+<l>get_grayval (b, myRow, myCol, bVal)</l>
+<c></c>
+<l>tuple_real (aVal, x)</l>
+<l>tuple_real (bVal, y)</l>
+<l>myData := {x,y}</l>
+<c></c>
+<c>* select initial centroid from myData</c>
+<l>k := 2</l>
+<l>dim := myData.length()</l>
+<l>randIndex := [0:1:|myData.at(1)|-1]</l>
+<l>tuple_shuffle (randIndex, Shuffled)</l>
+<l>for i := 0 to k-1 by 1</l>
+<l>    for j := 0 to dim-1 by 1</l>
+<l>       centroids.at(i)[j] := myData.at(j)[Shuffled[i]] </l>
+<l>    endfor</l>
+<l>    Shuffled_index := i</l>
+<l>endfor</l>
+<c>* need to check repeat data</c>
+<l>for i := 0 to k-1 by 1</l>
+<l>    for c := i+1 to k-1 by 1</l>
+<l>        check_dist := centroids.at(i) - centroids.at(c)</l>
+<l>        tuple_equal(check_dist,[0,0],Equal)</l>
+<l>        if (Equal)</l>
+<l>            for j := 0 to dim-1 by 1</l>
+<l>                Shuffled_index := Shuffled_index+1</l>
+<l>                centroids.at(c)[j] := myData.at(j)[Shuffled[Shuffled_index]] </l>
+<l>            endfor</l>
+<l>        endif</l>
+<l>    endfor</l>
+<l>endfor</l>
+<c></c>
+<l>initial_centroids := centroids</l>
+<c></c>
+<l>for time := 0 to 3 by 1</l>
+<c>   </c>
+<c>    * cal distnace from centroids</c>
+<l>    tuple_length(myData.at(0), NumData)</l>
+<l>    tuple_gen_const (NumData, 0, temp_zero)</l>
+<l>    for i := 0 to k-1 by 1</l>
+<c>        </c>
+<l>        distance.at(i) := temp_zero</l>
+<l>        for j := 0  to dim-1 by 1</l>
+<l>            distance_dim := pow((myData.at(j) - centroids.at(i)[j]),2)</l>
+<l>            distance.at(i) := distance.at(i) + distance_dim</l>
+<l>        endfor</l>
+<c>        </c>
+<l>    endfor</l>
+<c>    </c>
+<c>    * assign class</c>
+<l>    tuple_gen_const (NumData, 0, myClass)</l>
+<l>    for i:=0 to k-1 by 1</l>
+<l>        myGreater := temp_zero</l>
+<l>        for j:=0 to k-1 by 1</l>
+<l>            tuple_greater_elem (distance.at(i),distance.at(j), temp)</l>
+<l>            myGreater := myGreater+temp</l>
+<l>        endfor</l>
+<l>        tuple_find (myGreater, 0, Indices)</l>
+<l>        if (Indices != -1)</l>
+<l>            myClass[Indices] := i</l>
+<l>        endif   </l>
+<l>    endfor</l>
+<c>    </c>
+<l>    condition := 1</l>
+<l>    for i:=0 to k-1 by 1</l>
+<l>        tuple_gen_const (|myClass|, i, test)</l>
+<l>        tuple_equal_elem (myClass, test, Equal)</l>
+<l>        good := sum(Equal)</l>
+<l>        if (good==0)</l>
+<l>            condition := 0</l>
+<l>        endif</l>
+<l>    endfor</l>
+<c>    </c>
+<c>    * use class to recompute centroids</c>
+<l>    if (condition)</l>
+<l>        for i := 0 to k-1 by 1 </l>
+<l>            tuple_find (myClass, i, Indices)</l>
+<l>            for j := 0  to dim-1 by 1</l>
+<l>                centroids.at(i)[j] := sum(myData.at(j)[Indices])/|Indices|</l>
+<l>            endfor</l>
+<l>        endfor</l>
+<l>    else</l>
+<c>        </c>
+<l>        break</l>
+<c>        </c>
+<l>    endif</l>
+<c>    </c>
+<c></c>
+<l>endfor</l>
+<c></c>
+<c></c>
+<l>tuple_find (myClass, 0, Indices)</l>
+<l>Row_0 := myRow[Indices]</l>
+<l>Col_0 := myCol[Indices]</l>
+<c></c>
+<l>tuple_find (myClass, 1, Indices)</l>
+<l>Row_1 := myRow[Indices]</l>
+<l>Col_1 := myCol[Indices]</l>
+<l>* stop()</l>
+<l>tuple_gen_const (|Row_0|, 255, myColor0)</l>
+<l>tuple_gen_const (|Row_1|, 0, myColor1)</l>
+<l>set_grayval (a, Row_0, Col_0, myColor0)</l>
+<l>set_grayval (a, Row_1, Col_1, myColor1)</l>
+<l>tuple_length(myColor0, Length0)</l>
+<l>tuple_length(myColor1, Length1)</l>
+<l>if(Length0 &gt; Length1)</l>
+<l>    threshold (a, Regions1, 200, 255)</l>
+<l>else</l>
+<l>    threshold (a, Regions1, 0, 100)</l>
+<l>endif</l>
+<c></c>
+<c></c>
+<l>Row_grid := GridSize</l>
+<l>Col_grid := GridSize</l>
+<l>gen_grid_region (rGrid, Row_grid, Col_grid, 'points', Width, Height)</l>
+<l>intersection (rGrid, Regions1, RegionIntersection)</l>
+<l>dev_clear_window()</l>
+<l>dev_display(RegionIntersection)</l>
+<l>connection(RegionIntersection,RegionIntersection)</l>
+<l>area_center (RegionIntersection, Area, Row, Column)</l>
+<c></c>
+<c>*position check</c>
+<l>tuple_real (Column, x)</l>
+<l>tuple_real (Row, y)</l>
+<l>myData := {x,y}</l>
+<l>Endkmean := true</l>
+<l>tempS := 0</l>
+<l>while(Endkmean)</l>
+<l>    gen_empty_obj (Resultk)</l>
+<l>    gen_empty_obj(RegionUs)</l>
+<l>    gen_empty_obj(Circle)</l>
+<l>    pRow := []</l>
+<l>    pCol := []</l>
+<l>    avgA.clear()</l>
+<l>    avgB.clear()</l>
+<l>    dim := myData.length()</l>
+<l>    randIndex := [0:1:|myData.at(1)|-1]</l>
+<l>    tuple_shuffle (randIndex, Shuffled)</l>
+<c>    </c>
+<l>    for i := 0 to k-1 by 1</l>
+<l>        for j := 0 to dim-1 by 1</l>
+<l>           centroids.at(i)[j] := myData.at(j)[Shuffled[i]] </l>
+<l>        endfor</l>
+<l>        Shuffled_index := i</l>
+<l>    endfor</l>
+<c>    </c>
+<c>    * need to check repeat data</c>
+<l>    for i := 0 to k-1 by 1</l>
+<l>        for c := i+1 to k-1 by 1</l>
+<l>            check_dist := centroids.at(i) - centroids.at(c)</l>
+<l>            tuple_equal(check_dist,[0,0],Equal)</l>
+<l>            if (Equal)</l>
+<l>                for j := 0 to dim-1 by 1</l>
+<l>                    Shuffled_index := Shuffled_index+1</l>
+<l>                    centroids.at(c)[j] := myData.at(j)[Shuffled[Shuffled_index]] </l>
+<l>                endfor</l>
+<l>            endif</l>
+<l>        endfor</l>
+<l>    endfor</l>
+<c>    </c>
+<l>    initial_centroids := centroids</l>
+<c>        </c>
+<l>    for time := 0 to 3 by 1   </l>
+<c>        * cal distnace from centroids</c>
+<l>        tuple_length(myData.at(0), NumData)</l>
+<l>        tuple_gen_const (NumData, 0, temp_zero)</l>
+<l>        for i := 0 to k-1 by 1</l>
+<l>            distance.at(i) := temp_zero</l>
+<l>            for j := 0  to dim-1 by 1</l>
+<l>                distance_dim := pow((myData.at(j) - centroids.at(i)[j]),2)</l>
+<l>                distance.at(i) := distance.at(i) + distance_dim</l>
+<l>            endfor</l>
+<l>        endfor</l>
+<c>        </c>
+<c>        * assign class</c>
+<l>        tuple_gen_const (NumData, 0, myClass)</l>
+<c>        </c>
+<l>        for i:=0 to k-1 by 1</l>
+<l>            myGreater := temp_zero</l>
+<l>            for j:=0 to k-1 by 1</l>
+<l>                tuple_greater_elem (distance.at(i),distance.at(j), temp)</l>
+<l>                myGreater := myGreater+temp</l>
+<l>            endfor</l>
+<l>            tuple_find (myGreater, 0, Indices)</l>
+<l>            if (Indices != -1)</l>
+<l>                myClass[Indices] := i</l>
+<l>            endif   </l>
+<l>        endfor</l>
+<c>        </c>
+<l>        condition := 1</l>
+<l>        for i:=0 to k-1 by 1</l>
+<l>            tuple_gen_const (|myClass|, i, test)</l>
+<l>            tuple_equal_elem (myClass, test, Equal)</l>
+<l>            good := sum(Equal)</l>
+<l>            if (good==0)</l>
+<l>                condition := 0</l>
+<l>            endif</l>
+<l>        endfor</l>
+<c>        </c>
+<c>        * use class to recompute centroids</c>
+<l>        if (condition)</l>
+<l>            for i := 0 to k-1 by 1 </l>
+<l>                tuple_find (myClass, i, Indices)</l>
+<l>                for j := 0  to dim-1 by 1</l>
+<l>                    centroids.at(i)[j] := sum(myData.at(j)[Indices])/|Indices|</l>
+<l>                endfor</l>
+<l>            endfor</l>
+<l>        else    </l>
+<l>            break</l>
+<l>        endif    </l>
+<l>    endfor</l>
+<c>    </c>
+<l>    if(Silhouette == true)</l>
+<l>        for Index := 0 to k-1 by 1</l>
+<l>            SumA := 0</l>
+<l>            tuple_find (myClass, Index, Indices)</l>
+<l>            tuple_length(Indices, Length)</l>
+<l>            ctemp := initial_centroids.at(Index)</l>
+<l>            pointR.at(Index) := Row[Indices]</l>
+<l>            pointC.at(Index) := Column[Indices]</l>
+<l>            gen_region_points(RegionU, pointR.at(Index), pointC.at(Index))</l>
+<l>            smallest_circle(RegionU, RowS, ColumnS, Radius)</l>
+<l>            area_center(RegionU, Area1, Row1, Column1)</l>
+<l>            if(Radius &gt; 100)</l>
+<l>                gen_circle(Circle, Row1, Column1, Radius*0.75)</l>
+<l>            else</l>
+<l>                gen_circle(Circle, Row1, Column1, Radius*0.9)</l>
+<l>            endif</l>
+<l>            concat_obj(Resultk, Circle, Resultk)</l>
+<l>            PowX := ctemp[0]-pointC.at(Index)</l>
+<l>            PowY := ctemp[1]-pointR.at(Index)</l>
+<l>            tuple_pow(PowX, 2, PowX)</l>
+<l>            tuple_pow(PowY, 2, PowY)</l>
+<l>            ValA := sqrt(PowX+PowY)</l>
+<l>            tuple_sum(ValA, SumA)</l>
+<l>            avgA.insert(Index,SumA/Length-1)</l>
+<l>            LengthI.at(Index) := Length</l>
+<l>            if(Radius &lt;= RadiusS)</l>
+<l>                Endkmean := false</l>
+<l>            endif</l>
+<l>        endfor</l>
+<c>        </c>
+<l>        for num0 := 0 to k-1 by 1</l>
+<l>            SumB := 0</l>
+<l>            SumL := 0</l>
+<l>            ConcatB := []</l>
+<l>            ctemp := initial_centroids.at(num0)</l>
+<l>            num1 := num0+1</l>
+<l>            while(num1 != num0)</l>
+<l>                if(num1 == k)</l>
+<l>                    num1 := num0</l>
+<l>                endif</l>
+<l>                c := pointC.at(num1)</l>
+<l>                r := pointR.at(num1)</l>
+<l>                PowX := ctemp[0]-c</l>
+<l>                PowY := ctemp[1]-r  </l>
+<l>                tuple_pow(PowX, 2, PowX)</l>
+<l>                tuple_pow(PowY, 2, PowY)</l>
+<l>                ValB := sqrt(PowX+PowY)</l>
+<l>                tuple_sum(ValB, ValB)</l>
+<l>                SumB := SumB+ValB</l>
+<l>                lCal := LengthI.at(num1)</l>
+<l>                BVal := SumB/lCal</l>
+<l>                tuple_concat (ConcatB, BVal, ConcatB)</l>
+<l>                num1 := num1+1</l>
+<l>                if(num1 == k)</l>
+<l>                    num1 := num0</l>
+<l>                    break</l>
+<l>                endif</l>
+<l>            endwhile</l>
+<l>            tuple_min(ConcatB,Min)</l>
+<l>            avgB.insert(num0,Min)</l>
+<l>        endfor</l>
+<l>        SumS := 0</l>
+<l>        for numS := 0 to k-1 by 1</l>
+<l>            ValueA := avgA.at(numS)</l>
+<l>            ValueB := avgB.at(numS)</l>
+<l>            tuple_max2(ValueA, ValueB, Max)</l>
+<l>            ValS := (ValueB-ValueA)/Max</l>
+<l>            SumS := SumS+ValS</l>
+<l>        endfor</l>
+<l>        avgS := SumS/k        </l>
+<l>        if (tempS &gt;= avgS)</l>
+<l>            Endkmean := false</l>
+<l>            if(tempS &gt; avgS)</l>
+<l>                k := k-1</l>
+<l>            endif</l>
+<l>        else</l>
+<l>            tempS := avgS</l>
+<l>        endif</l>
+<l>    else</l>
+<l>        for Index := 0 to k-1 by 1</l>
+<l>            pRow := []</l>
+<l>            pCol := []</l>
+<l>            tuple_find (myClass, Index, Indices)</l>
+<l>            pRow := Row[Indices]</l>
+<l>            pCol := Column[Indices]</l>
+<l>            gen_region_points(RegionU, pRow, pCol)</l>
+<l>            smallest_circle(RegionU, RowS, ColumnS, Radius)</l>
+<l>            area_center(RegionU, Area1, Row1, Column1)</l>
+<l>            if(Radius &gt; 150)</l>
+<l>                gen_circle(Circle, Row1, Column1, Radius*0.75)</l>
+<l>            else</l>
+<l>                gen_circle(Circle, Row1, Column1, Radius*0.9)</l>
+<l>            endif</l>
+<l>            if(Radius &gt; RadiusK)</l>
+<l>                Index := k</l>
+<l>                Endkmean := true</l>
+<l>                break</l>
+<l>            else</l>
+<l>                concat_obj(Resultk, Circle, Resultk)</l>
+<l>                Endkmean := false</l>
+<l>            endif</l>
+<l>        endfor</l>
+<l>    endif</l>
+<l>    k := k+1</l>
+<l>endwhile</l>
+<l>return ()</l>
+</body>
+<docu id="kmeancluster">
+<parameters>
+<parameter id="GridSize"/>
+<parameter id="RadiusK"/>
+<parameter id="RadiusS"/>
+<parameter id="Resultk"/>
+<parameter id="Silhouette"/>
+<parameter id="a"/>
+<parameter id="b"/>
+</parameters>
+</docu>
+</procedure>
+</hdevelop>
