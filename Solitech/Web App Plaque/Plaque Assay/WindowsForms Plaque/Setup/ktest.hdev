@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.2" halcon_version="20.11.1.2">
+<procedure name="main">
+<interface/>
+<body>
+<l>x := [0,1,-1,0,1,-1,  10,11,13,9,11,11,  5,4,5,4,4,5,  0, 1, 2, 0, 1, 2,  12,12,14,16,12,14]</l>
+<l>y := [0,0, 0,0,1, 1,   0, 1,-1,0,-1, 1,  5,5,4,5,4,5, -5,-4,-6,-4,-3,-6,  -4,-6,-7,-5,-6,-7]</l>
+<l>myData := {x,y}</l>
+<l>k := 5</l>
+<l>avgA.clear()</l>
+<l>avgB.clear()</l>
+<l>avgS.clear()</l>
+<l>Endkmean := true</l>
+<l>tempS := 0</l>
+<l>pRow := [-7.36,3.08,5.03,-1.93,-8.86]</l>
+<l>pCol := [6.37,-6.78,-8.31,-0.92,6.6]</l>
+<l>switch(k)</l>
+<l>case 2: </l>
+<l>    no := [1,2,2,1,1]</l>
+<l>    num := [3,2]</l>
+<l>    break</l>
+<l>case 3:</l>
+<l>    no := [1,2,2,3,1]</l>
+<l>    num := [2,2,1]</l>
+<l>    break</l>
+<l>case 4:</l>
+<l>    no := [1,2,3,4,1]</l>
+<l>    num := [2,1,1,1]</l>
+<l>    break</l>
+<l>case 5:</l>
+<l>    no := [1,2,3,4,5]</l>
+<l>    num := [1,1,1,1,1]</l>
+<l>    break</l>
+<l>endswitch</l>
+<c></c>
+<l>for Index := 0 to 4  by 1</l>
+<l>    SumA := 0</l>
+<l>    SumB := 0</l>
+<l>    count := 0</l>
+<l>    count2 := 0</l>
+<l>    concatB := []</l>
+<l>    condition := true</l>
+<l>    j := Index</l>
+<l>    ctemp := [pRow[j],pCol[j]]</l>
+<l>    ktemp := no[Index]</l>
+<l>    other := 5-num[ktemp-1]</l>
+<l>    while(condition)</l>
+<l>        j := j+1</l>
+<l>        if(j &lt;= 4)</l>
+<l>            if(no[j] == ktemp)</l>
+<l>                Pow := ctemp - [pRow[j],pCol[j]]</l>
+<l>                tuple_pow(Pow, 2, Pow)</l>
+<l>                tuple_sum(Pow, Pow)</l>
+<l>                Pow := sqrt(Pow)</l>
+<l>                SumA := SumA + Pow</l>
+<l>                count := count + 1</l>
+<l>            else</l>
+<l>                Pow2 := [pRow[j],pCol[j]] - ctemp</l>
+<l>                tuple_pow(Pow2, 2, Pow2)</l>
+<l>                tuple_sum(Pow2, Pow2)</l>
+<l>                Pow2 := sqrt(Pow2)</l>
+<l>                if(k == 2)</l>
+<l>                    SumB := SumB + Pow2</l>
+<l>*                     tuple_concat(concatB,Pow2, concatB)</l>
+<l>                else</l>
+<l>                    if(ktemp != 1)</l>
+<l>                        tuple_concat(concatB,Pow2, concatB)</l>
+<l>                    else</l>
+<l>                        if(k == 5)</l>
+<l>                            tuple_concat(concatB,Pow2, concatB)</l>
+<l>                        else</l>
+<l>                            SumB := SumB + Pow2</l>
+<l>                            tuple_concat(concatB,SumB/num[ktemp-1], concatB)</l>
+<l>                        endif</l>
+<l>                    endif</l>
+<c>                    </c>
+<l>                endif</l>
+<l>                count2 := count2 + 1</l>
+<l>            endif</l>
+<l>        else</l>
+<l>            j := 0</l>
+<l>            if(no[j] == ktemp)</l>
+<l>                Pow := ctemp - [pRow[j],pCol[j]]</l>
+<l>                tuple_pow(Pow, 2, Pow)</l>
+<l>                tuple_sum(Pow, Pow)</l>
+<l>                Pow := sqrt(Pow)</l>
+<l>                SumA := SumA + Pow</l>
+<l>                count := count + 1</l>
+<l>            else</l>
+<l>                Pow2 := ctemp - [pRow[j],pCol[j]]</l>
+<l>                tuple_pow(Pow2, 2, Pow2)</l>
+<l>                tuple_sum(Pow2, Pow2)</l>
+<l>                Pow2 := sqrt(Pow2)</l>
+<l>                if(k == 2)</l>
+<l>                    SumB := SumB + Pow2</l>
+<l>*                     tuple_concat(concatB,Pow2, concatB)</l>
+<l>                else</l>
+<l>                    if(ktemp != 1)</l>
+<l>                        tuple_concat(concatB,Pow2, concatB)</l>
+<l>                    else</l>
+<l>                        if(k == 5)</l>
+<l>                            tuple_concat(concatB,Pow2, concatB)</l>
+<l>                        else</l>
+<l>                            SumB := SumB + Pow2</l>
+<l>                            tuple_concat(concatB,SumB/num[ktemp-1], concatB)</l>
+<l>                        endif</l>
+<l>                    endif</l>
+<c>                    </c>
+<l>                endif</l>
+<l>                count2 := count2 + 1</l>
+<l>            endif</l>
+<l>        endif</l>
+<l>        if(count == num[ktemp-1]-1 and count2 == other)</l>
+<l>            condition := false</l>
+<l>        endif</l>
+<l>    endwhile</l>
+<l>    if(SumA == 0 and count == 0)</l>
+<l>        SumA := 99999999</l>
+<l>        avgA.insert(Index,SumA)</l>
+<l>    else</l>
+<l>        avgA.insert(Index,SumA/(num[ktemp-1]-1))</l>
+<l>    endif</l>
+<l>    if(k == 2)</l>
+<l>        avgB.insert(Index,SumB/(count2))</l>
+<l>    else</l>
+<l>        tuple_min(concatB, Min)</l>
+<l>        avgB.insert(Index,Min)</l>
+<l>    endif</l>
+<l>    ValueA := avgA.at(Index)</l>
+<l>    ValueB := avgB.at(Index)</l>
+<l>    if(ValueA &gt; 9999)</l>
+<l>        if(count &gt; 0)</l>
+<l>            ValueA := 0</l>
+<l>            avgA.insert(Index,ValueA)</l>
+<l>        endif</l>
+<l>    endif</l>
+<l>    tuple_max2(ValueA, ValueB, Max)</l>
+<l>    ValS := (ValueB-ValueA)/Max</l>
+<l>    avgS.insert(Index,ValS)</l>
+<l>endfor</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

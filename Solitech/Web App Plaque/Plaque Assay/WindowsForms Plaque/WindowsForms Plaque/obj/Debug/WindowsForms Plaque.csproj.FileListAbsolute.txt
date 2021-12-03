@@ -1,0 +1,35 @@
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\WindowsForms Plaque.exe.config
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\WindowsForms Plaque.exe
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\WindowsForms Plaque.pdb
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\halcondotnet.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\hdevenginedotnet.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\halcondotnet.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\hdevenginedotnet.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms Plaque.csproj.AssemblyReference.cache
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms_Plaque.Form1.resources
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms_Plaque.Properties.Resources.resources
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms Plaque.csproj.GenerateResource.cache
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms Plaque.csproj.CoreCompileInputs.cache
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms Plaque.csproj.CopyComplete
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms Plaque.exe
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms Plaque.pdb
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\FireSharp.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\FireSharp.Serialization.JsonNet.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Microsoft.Threading.Tasks.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Newtonsoft.Json.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\RestSharp.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\System.Net.Http.Extensions.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\System.Net.Http.Primitives.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Microsoft.Threading.Tasks.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Newtonsoft.Json.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\RestSharp.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\System.Net.Http.Extensions.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\System.Net.Http.Primitives.xml
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\obj\Debug\WindowsForms Plaque.csproj.App.config
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Firebase.Storage.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Solitech\Web App Plaque\Plaque Assay\WindowsForms Plaque\WindowsForms Plaque\bin\Debug\Firebase.Auth.dll

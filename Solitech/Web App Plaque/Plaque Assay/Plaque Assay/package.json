@@ -1,0 +1,9 @@
+{
+  "name": "plaque-assay",
+  "version": "0.0.0",
+  "description": "Plaque Assay",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  }
+}
