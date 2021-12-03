@@ -1,3 +1,0 @@
-# Plaque Assay
-
-

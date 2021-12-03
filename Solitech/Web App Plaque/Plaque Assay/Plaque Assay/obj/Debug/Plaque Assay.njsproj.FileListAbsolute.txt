@@ -1,3 +1,0 @@
-C:\Solitech\Web App Plaque\Plaque Assay\Plaque Assay\obj\Debug\Plaque Assay.njsprojAssemblyReference.cache
-C:\Solitech\Web App Plaque\Plaque Assay\Plaque Assay\obj\Debug\Plaque Assay.njsproj.CoreCompileInputs.cache
-C:\Solitech\Web App Plaque\Plaque Assay\Plaque Assay\bin\Microsoft.NodejsTools.WebRole.dll
